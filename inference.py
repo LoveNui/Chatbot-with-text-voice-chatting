@@ -112,7 +112,7 @@ if __name__ == '__main__':
     parser.add_argument('--input_roll', nargs='+', type=int, default=None, help="the input roll degree of the user")
     parser.add_argument('--enhancer',  type=str, default=None, help="Face enhancer, [gfpgan, RestoreFormer]")
     parser.add_argument('--background_enhancer',  type=str, default=None, help="background enhancer, [realesrgan]")
-    parser.add_argument("--cpu", dest="cpu", action="store_true") 
+    # parser.add_argument("--cpu", dest="cpu", action="store_true") 
     parser.add_argument("--face3dvis", action="store_true", help="generate 3d face and 3d landmarks") 
     parser.add_argument("--still", action="store_true", help="can crop back to the original videos for the full body aniamtion") 
     parser.add_argument("--preprocess", default='crop', choices=['crop', 'extcrop', 'resize', 'full', 'extfull'], help="how to preprocess the images" ) 
@@ -136,7 +136,8 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if torch.cuda.is_available() and not args.cpu:
+    if torch.cuda.is_available():
+        print("Okay")
         args.device = "cuda"
     else:
         args.device = "cpu"
