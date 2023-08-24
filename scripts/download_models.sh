@@ -1,4 +1,4 @@
-mkdir /kaggle/working/sadtalker/checkpoints
+mkdir /kaggle/working/AI-avatar-generator/checkpoints
 
 # lagency download link
 # wget -nc https://github.com/Winfredy/SadTalker/releases/download/v0.0.2/auido2exp_00300-model.pth -O ./checkpoints/auido2exp_00300-model.pth
@@ -14,19 +14,19 @@ mkdir /kaggle/working/sadtalker/checkpoints
 
 
 #### download the new links.
-wget -nc https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00109-model.pth.tar -O  /kaggle/working/sadtalker/checkpoints/mapping_00109-model.pth.tar
-wget -nc https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00229-model.pth.tar -O  /kaggle/working/sadtalker/checkpoints/mapping_00229-model.pth.tar
-wget -nc https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_256.safetensors -O  /kaggle/working/sadtalker/checkpoints/SadTalker_V0.0.2_256.safetensors
-wget -nc https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_512.safetensors -O  /kaggle/working/sadtalker/checkpoints/SadTalker_V0.0.2_512.safetensors
+wget -nc https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00109-model.pth.tar -O  /kaggle/working/AI-avatar-generator/checkpoints/mapping_00109-model.pth.tar
+wget -nc https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00229-model.pth.tar -O  /kaggle/working/AI-avatar-generator/checkpoints/mapping_00229-model.pth.tar
+wget -nc https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_256.safetensors -O  /kaggle/working/AI-avatar-generator/checkpoints/SadTalker_V0.0.2_256.safetensors
+wget -nc https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_512.safetensors -O  /kaggle/working/AI-avatar-generator/checkpoints/SadTalker_V0.0.2_512.safetensors
 
 
 # wget -nc https://github.com/Winfredy/SadTalker/releases/download/v0.0.2/BFM_Fitting.zip -O ./checkpoints/BFM_Fitting.zip
 # unzip -n ./checkpoints/BFM_Fitting.zip -d ./checkpoints/
 
 ### enhancer 
-mkdir -p /kaggle/working/sadtalker/gfpgan/weights
-wget -nc https://github.com/xinntao/facexlib/releases/download/v0.1.0/alignment_WFLW_4HG.pth -O /kaggle/working/sadtalker/gfpgan/weights/alignment_WFLW_4HG.pth 
-wget -nc https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth -O /kaggle/working/sadtalker/gfpgan/weights/detection_Resnet50_Final.pth 
-wget -nc https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth -O /kaggle/working/sadtalker/gfpgan/weights/GFPGANv1.4.pth 
-wget -nc https://github.com/xinntao/facexlib/releases/download/v0.2.2/parsing_parsenet.pth -O /kaggle/working/sadtalker/gfpgan/weights/parsing_parsenet.pth 
+mkdir -p /kaggle/working/AI-avatar-generator/gfpgan/weights
+wget -nc https://github.com/xinntao/facexlib/releases/download/v0.1.0/alignment_WFLW_4HG.pth -O /kaggle/working/AI-avatar-generator/gfpgan/weights/alignment_WFLW_4HG.pth 
+wget -nc https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth -O /kaggle/working/AI-avatar-generator/gfpgan/weights/detection_Resnet50_Final.pth 
+wget -nc https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth -O /kaggle/working/AI-avatar-generator/gfpgan/weights/GFPGANv1.4.pth 
+wget -nc https://github.com/xinntao/facexlib/releases/download/v0.2.2/parsing_parsenet.pth -O /kaggle/working/AI-avatar-generator/gfpgan/weights/parsing_parsenet.pth 
 
