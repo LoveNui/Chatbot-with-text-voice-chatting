@@ -30,6 +30,10 @@ def tts(text_input, voice_name = 'en_speaker_2'):
     file_name = "/kaggle/working/AI-avatar-generator/src/audio.wav"
     try:
         os.remove(file_name)
+    except OSError:
+        pass
+
+    try:
         write_wav(file_name, SAMPLE_RATE, audio_file)
         return True
     except OSError:
