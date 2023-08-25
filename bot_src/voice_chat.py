@@ -1,7 +1,7 @@
 from deepgram import Deepgram
 from inference import video_geneartor
 from argparse import ArgumentParser
-from private_env import DG_KEY
+from bot_src.private_env import DG_KEY
 import json
 import os
 

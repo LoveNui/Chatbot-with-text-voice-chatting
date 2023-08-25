@@ -4,7 +4,7 @@ import os
 import re
 import sqlite3
 from datetime import date, datetime
-from private_env import OPENAI_KEY
+from bot_src.private_env import OPENAI_KEY
 
 openai.api_key = OPENAI_KEY
 

@@ -15,8 +15,6 @@ storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
 # System Variable Set
-DIRECTORY = '.'
-MIMETYPE = 'mp3'
 message_box = {}
 is_running = {}
 

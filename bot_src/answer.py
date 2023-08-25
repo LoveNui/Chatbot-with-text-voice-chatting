@@ -5,7 +5,7 @@ from langchain.agents import initialize_agent, Tool
 from langchain import OpenAI, SerpAPIWrapper
 from dotenv import load_dotenv
 
-from private_env import OPENAI_KEY, SERP_API_KEY
+from bot_src.private_env import OPENAI_KEY, SERP_API_KEY
 
 import threading
 import json
