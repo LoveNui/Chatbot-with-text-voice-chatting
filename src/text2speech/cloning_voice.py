@@ -7,6 +7,7 @@ from encodec.utils import convert_audio
 from hubert.hubert_manager import HuBERTManager
 from hubert.pre_kmeans_hubert import CustomHubert
 from hubert.customtokenizer import CustomTokenizer
+from argparse import ArgumentParser
 
 use_large_quant_model = False
 
@@ -68,4 +69,9 @@ def voice_cloning(
     print(f'Save npz to {out_file}')
 
 if __name__ == '__main__':
-    voice_cloning("New_Hero", '/kaggle/working/AI-AVATA-GENERTOR/clone_voice_source/little.wav')
+    parser = ArgumentParser()  
+    parser.add_argument("--cloned_speaker_name", default='Hello, I am Dalia', help="text that needs to be converted to the speech")
+    parser.add_argument("--voice_source", default='en_speaker_2', help="voice that is used to generate speech")
+    args = parser.parse_args()
+
+    voice_cloning("lary", "/kaggle/working/AI-avatar-generator/customer_files/customer_audio_source/lary.wav")
