@@ -27,7 +27,7 @@ def tts(text_input, voice_name = 'en_speaker_2'):
     print("Received text:", received_text)
     audio_file = generate_audio(received_text, history_prompt=voice_name )
     
-    file_name = "../audio.wav"
+    file_name = "/kaggle/working/AI-avatar-generator/src/audio.wav"
     try:
         os.remove(file_name)
         write_wav(file_name, SAMPLE_RATE, audio_file)

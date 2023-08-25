@@ -19,6 +19,7 @@ def main(args):
     #torch.backends.cudnn.enabled = False
     audio = tts(args.text, voice_name = f'/kaggle/working/AI-avatar-generator/customer_files/customer_npz/{args.speaker}.npz')
     if audio == False:
+        print("Error in genearte speech")
         return "Error in genearte speech"
     audio_path ="/kaggle/working/AI-avatar-generator/src/audio.wav"
     pic_path = f'/kaggle/working/AI-avatar-generator/customer_files/customer_picture/{args.speaker}.png'
