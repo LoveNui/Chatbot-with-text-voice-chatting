@@ -84,6 +84,8 @@ def main(args):
     batch = get_data(first_coeff_path, audio_path, device, ref_eyeblink_coeff_path, still=args.still)
     coeff_path = audio_to_coeff.generate(batch, save_dir, pose_style, ref_pose_coeff_path)
 
+    print("---------------------------------")
+    print(args.face3dvis)
     # 3dface render
     if args.face3dvis:
         from src.face3d.visualize import gen_composed_video

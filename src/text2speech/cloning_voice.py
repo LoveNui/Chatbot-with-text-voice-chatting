@@ -9,12 +9,12 @@ from hubert.pre_kmeans_hubert import CustomHubert
 from hubert.customtokenizer import CustomTokenizer
 from argparse import ArgumentParser
 
-use_large_quant_model = False
+use_large_quant_model = True
 
 def voice_cloning(
         cloned_speaker_name,
         voice_source,
-        use_large_quant_model=False, 
+        use_large_quant_model=True, 
         large_model='quantifier_V1_hubert_base_ls960_23.pth', 
         large_tokenizer = 'tokenizer_large.pth',
         base_model='quantifier_hubert_base_ls960_14.pth',
