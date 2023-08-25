@@ -1,0 +1,13 @@
+boto3
+funcy
+numpy
+scipy
+tokenizers
+torch
+tqdm
+bark
+encodec
+huggingface_hub
+shutil
+fairseq
+audiolm_pytorch

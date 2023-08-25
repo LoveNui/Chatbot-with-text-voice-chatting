@@ -4,7 +4,7 @@ import torch
 from time import  strftime
 import os, sys, time
 from argparse import ArgumentParser
-
+# AI avartar geneartor
 from src.utils.preprocess import CropAndExtract
 from src.test_audio2coeff import Audio2Coeff  
 from src.facerender.animate import AnimateFromCoeff
@@ -12,21 +12,30 @@ from src.generate_batch import get_data
 from src.generate_facerender_batch import get_facerender_data
 from src.utils.init_path import init_path
 
+# Text to Speech
+from src.text2speech.tts import tts
+
 def main(args):
     #torch.backends.cudnn.enabled = False
-
-    pic_path = args.source_image
-    audio_path = args.driven_audio
+    audio = tts(args.text, voice_name = f'/kaggle/working/AI-avatar-generator/customer_files/customer_npz/{args.speaker}.npz')
+    if audio == False:
+        return "Error in genearte speech"
+    audio_path ="/kaggle/working/AI-avatar-generator/src/audio.wav"
+    pic_path = f'/kaggle/working/AI-avatar-generator/customer_files/customer_picture/{args.speaker}.png'
     save_dir = os.path.join(args.result_dir, strftime("%Y_%m_%d_%H.%M.%S"))
     os.makedirs(save_dir, exist_ok=True)
     pose_style = args.pose_style
-    device = args.device
     batch_size = args.batch_size
     input_yaw_list = args.input_yaw
     input_pitch_list = args.input_pitch
     input_roll_list = args.input_roll
     ref_eyeblink = args.ref_eyeblink
     ref_pose = args.ref_pose
+
+    if torch.cuda.is_available():
+        device = "cuda"
+    else:
+        device = "cpu"
 
     current_root_path = os.path.split(sys.argv[0])[0]
 
@@ -97,8 +106,8 @@ def main(args):
 if __name__ == '__main__':
 
     parser = ArgumentParser()  
-    parser.add_argument("--driven_audio", default='/kaggle/working/AI-avatar-generator/examples/driven_audio/bus_chinese.wav', help="path to driven audio")
-    parser.add_argument("--source_image", default='/kaggle/working/AI-avatar-generator/examples/source_image/full_body_1.png', help="path to source image")
+    parser.add_argument("--text", default='Hello, I am Dalia', help="text that needs to be converted to the speech")
+    parser.add_argument("--speaker", default='en_speaker_2', help="voice that is used to generate speech")
     parser.add_argument("--ref_eyeblink", default=None, help="path to reference video providing eye blinking")
     parser.add_argument("--ref_pose", default=None, help="path to reference video providing pose")
     parser.add_argument("--checkpoint_dir", default='/kaggle/working/AI-avatar-generator/checkpoints', help="path to output")
@@ -135,12 +144,6 @@ if __name__ == '__main__':
     parser.add_argument('--z_far', type=float, default=15.)
 
     args = parser.parse_args()
-
-    if torch.cuda.is_available():
-        print("Okay")
-        args.device = "cuda"
-    else:
-        args.device = "cpu"
 
     main(args)
 
