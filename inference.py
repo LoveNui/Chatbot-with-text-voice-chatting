@@ -15,14 +15,14 @@ from src.utils.init_path import init_path
 # Text to Speech
 from src.text2speech.tts import tts
 
-def main(args):
+def video_geneartor(args):
     #torch.backends.cudnn.enabled = False
-    audio = tts(args.text, voice_name = f'/kaggle/working/AI-avatar-generator/customer_files/customer_npz/{args.speaker}.npz')
+    audio = tts(args.text, voice_name = args.npz)
     if audio == False:
         print("Error in genearte speech")
         return "Error in genearte speech"
     audio_path ="/kaggle/working/AI-avatar-generator/src/audio.wav"
-    pic_path = f'/kaggle/working/AI-avatar-generator/customer_files/customer_picture/{args.speaker}.png'
+    pic_path = args.picture
     save_dir = os.path.join(args.result_dir, strftime("%Y_%m_%d_%H.%M.%S"))
     os.makedirs(save_dir, exist_ok=True)
     pose_style = args.pose_style
@@ -104,13 +104,14 @@ def main(args):
 
     if not args.verbose:
         shutil.rmtree(save_dir)
-
+    return save_dir
     
 if __name__ == '__main__':
 
     parser = ArgumentParser()  
     parser.add_argument("--text", default='Hello, I am Dalia', help="text that needs to be converted to the speech")
-    parser.add_argument("--speaker", default='en_speaker_2', help="voice that is used to generate speech")
+    parser.add_argument("--npz", default='en_speaker_2', help="voice that is used to generate speech")
+    parser.add_argument("--picture", default='default', help="picture that is used to generate video")
     parser.add_argument("--ref_eyeblink", default=None, help="path to reference video providing eye blinking")
     parser.add_argument("--ref_pose", default=None, help="path to reference video providing pose")
     parser.add_argument("--checkpoint_dir", default='/kaggle/working/AI-avatar-generator/checkpoints', help="path to output")
@@ -148,5 +149,5 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    main(args)
+    video_geneartor(args)
 
