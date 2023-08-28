@@ -62,6 +62,7 @@ async def start_command(message: types.Message):
 @dp.message_handler()
 async def handle_message(message: types.Message):
     print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
+    print(message)
     global is_running
     text = message.text
     id = str(message.chat.id)
@@ -93,7 +94,6 @@ async def handle_voice(message: types.Message):
     voice_message = f'./voice_message/{id}.ogg'
     with open(voice_message, "wb") as f:
         f.write(file.content)
-
     text = speech_to_text(id)
     message_box[id] = make_massage_box(message_box[id], text, id)
     ext, system_prompt = extract_information(text, id)
