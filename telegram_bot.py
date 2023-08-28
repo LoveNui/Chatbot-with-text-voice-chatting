@@ -37,6 +37,8 @@ async def start_command(message: types.Message):
     
     system_prompt = make_system_prompt(str(message.chat.id))
     is_running[str(message.chat.id)] = True
+    clone_picture[str(message.chat.id)] = False
+    clone_voice[str(message.chat.id)] = False
     message_box[str(message.chat.id)] = [{"role": "assistant", "content": "Hi, My name is Dalia. How is it going?"},{"role": "system",
                     "content": system_prompt}]
     await bot.send_message(chat_id=message.chat.id, text="Hi, It's Dalia. How is it going?")
@@ -50,6 +52,8 @@ async def stop_command(message: types.Message):
     global system_prompt
     is_running.pop(str(message.chat.id))
     message_box.pop(str(message.chat.id))
+    clone_picture.pop(str(message.chat.id))
+    clone_voice.pop(str(message.chat.id))
     await bot.send_message(chat_id=message.chat.id, text="Thank you, Nice talking to you.")
 
 # Handle the "/voice" command
