@@ -8,7 +8,7 @@ from bot_src.private_env import OPENAI_KEY
 
 openai.api_key = OPENAI_KEY
 
-mydb = sqlite3.connect('data.db')
+mydb = sqlite3.connect('/kaggle/working/AI-avatar-generator/data.db')
 mydb.execute("CREATE TABLE IF NOT EXISTS users (user_id BIGINT NOT NULL PRIMARY KEY, username VARCHAR(255) NULL,	birthday DATE NULL,	hobbies TEXT NULL,	music TEXT NULL,	animal TEXT NULL,	goal TEXT NULL);")
 mydb.execute("CREATE TABLE IF NOT EXISTS schedules (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id BIGINT NOT NULL,	date DATETIME NULL,	content TEXT NULL,	FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE NO ACTION);")
 
