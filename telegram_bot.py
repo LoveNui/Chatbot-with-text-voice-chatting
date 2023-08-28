@@ -114,16 +114,8 @@ async def handle_voice(message: types.Message):
     print("--------------------- Download photos -------------------------")
     global is_running
     id = str(message.chat.id)
-    print(message.photo)
-    file_id = message.photo.file_id
-    file_path = await bot.get_file(file_id)
-    file_path = file_path.file_path
-    print(file_path)
-    file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format("6359746469:AAHsiSHmdFWD4XxzDvYmWvAgM5IO35dUe7c", file_path))
     picture_path = f'/kaggle/working/AI-avatar-generator/customer_files/customer_picture/{id}.png'
-    with open(picture_path, "wb") as f:
-        f.write(file.content)
-    print(picture_path)
+    await message.photo[-1].download(picture_path, make_dirs=False)
 
 if __name__ == "__main__":
     
