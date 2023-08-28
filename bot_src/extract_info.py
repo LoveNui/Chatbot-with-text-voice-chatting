@@ -55,18 +55,12 @@ def make_system_prompt(id):
         nothing = 1
     if nothing == 1:
         system_prompt = system_prompt + "\n Information about the user you are talking to follows:" + user_prompt
-    print("--------------------------    make massage box    -----------------------------------")
-    print(system_prompt)
-    print("-------------------------------------------------------------------------")
     return system_prompt
 
 def make_massage_box(message, text, id):
     message_box = message
     username, user_birthday, user_hobbies, user_music, user_animal, user_goal = "", "", "", "", "", ""
     myresult = list(mydb.execute("Select * from users WHERE user_id = ?", (int(id), )))
-    print("--------------------------    make massage box    -----------------------------------")
-    print(myresult)
-    print("-------------------------------------------------------------------------")
     if myresult != []:
         username = myresult[0][1]
         user_birthday =  myresult[0][2]
@@ -92,7 +86,6 @@ def make_massage_box(message, text, id):
 
 def extract_information(sen, id):
     global extract_prompt
-    global extract_schedule
     extract = 0
     massage_box_extraction = [{"role": "system", "content": extract_prompt}, {"role": "user", "content": sen}]
     response = openai.ChatCompletion.create(
