@@ -98,9 +98,9 @@ def extract_information(sen, id):
             try:
                 mydb.execute("UPDATE users SET username = ? WHERE user_id = ?", (mk[-1], id))
                 mydb.commit()
-                make_system_prompt(id)
+                system_prompt = make_system_prompt(id)
                 extract = 1
-                return extract
+                return extract, system_prompt
             except:
                 pass
         else:
@@ -112,9 +112,9 @@ def extract_information(sen, id):
             try:
                 mydb.execute("UPDATE users SET birthday = ? WHERE user_id = ?", (bir, id))
                 mydb.commit()
-                make_system_prompt(id)
+                system_prompt = make_system_prompt(id)
                 extract = 1
-                return extract
+                return extract, system_prompt
             except:
                 pass
         else:
@@ -125,9 +125,9 @@ def extract_information(sen, id):
             try:
                 mydb.execute("UPDATE users SET hobbies = ? WHERE user_id = ?", (mk[-1], id))
                 mydb.commit()
-                make_system_prompt(id)
+                system_prompt = make_system_prompt(id)
                 extract = 1
-                return extract
+                return extract, system_prompt
             except:
                 pass
         else:
@@ -138,9 +138,9 @@ def extract_information(sen, id):
             try:
                 mydb.execute("UPDATE users SET music = ? WHERE user_id = ?", (mk[-1], id))
                 mydb.commit()
-                make_system_prompt(id)
+                system_prompt = make_system_prompt(id)
                 extract = 1
-                return extract
+                return extract, system_prompt
             except:
                 pass
         else:
@@ -151,9 +151,9 @@ def extract_information(sen, id):
             try:
                 mydb.execute("UPDATE users SET animal = ? WHERE user_id = ?", (mk[-1], id))
                 mydb.commit()
-                make_system_prompt(id)
+                system_prompt = make_system_prompt(id)
                 extract = 1
-                return extract
+                return extract, system_prompt
             except:
                 pass
         else:
@@ -164,11 +164,12 @@ def extract_information(sen, id):
             try:
                 mydb.execute("UPDATE users SET goal = ? WHERE user_id = ?", (mk[-1], id))
                 mydb.commit()
-                make_system_prompt(id)
+                system_prompt = make_system_prompt(id)
                 extract = 1
-                return extract
+                return extract, system_prompt
             except:
                 pass
         else:
             pass
-    return extract
+    system_prompt = make_system_prompt(id)
+    return extract, system_prompt

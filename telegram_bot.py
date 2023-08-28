@@ -77,12 +77,11 @@ async def handle_message(message: types.Message):
     global is_running
     text = message.text
     id = str(message.chat.id)
-    system_prompt = make_system_prompt(id)
     message_box[id] = make_massage_box(message_box[id], text, id)
     print("---------------------- Message Box -------------------------")
     print(message_box[id])
     print("----------------------- user infor extraction -------------------------")
-    extract_information(text, id)
+    ext, system_prompt = extract_information(text, id)
     if is_running.get(id):
         print("---------------------- making answer ------------------------")
         answer = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
