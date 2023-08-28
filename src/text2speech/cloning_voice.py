@@ -4,9 +4,9 @@ import torch
 import torchaudio
 from encodec import EncodecModel
 from encodec.utils import convert_audio
-from hubert.hubert_manager import HuBERTManager
-from hubert.pre_kmeans_hubert import CustomHubert
-from hubert.customtokenizer import CustomTokenizer
+from src.text2speech.hubert.hubert_manager import HuBERTManager
+from src.text2speech.hubert.pre_kmeans_hubert import CustomHubert
+from src.text2speech.hubert.customtokenizer import CustomTokenizer
 from argparse import ArgumentParser
 
 use_large_quant_model = True
