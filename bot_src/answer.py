@@ -73,21 +73,21 @@ def set_answer_box(query):
     return query_data
 
 def langchain_func(text):
-    global result_answer
     query_data = set_answer_box(text)
     if query_data == {}:
         result_answer = agent_organic.run(text)
     else:
         result_answer = agent.run(text)
+    return result_answer
 
 
 def get_result_openai(message_box):
-    global openai_answer
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages = message_box
     )
     openai_answer = response.choices[0]["message"]["content"]
+    return openai_answer
 
 
 def check_answer_ai_bot(sentence, word_list):
@@ -101,16 +101,12 @@ def geneartor_answer(message, system_prompt, text):
     message_box = message
     openai_answer = ""
     result_answer = ""
-    thread1 = threading.Thread(target=langchain_func, args=(text,))
-    thread2 = threading.Thread(target=get_result_openai, args=(message_box,))
-    thread1.start()
-    thread2.start()
-    thread2.join()
     print("---------------------- openai_answer ------------------------")
+    openai_answer = get_result_openai(message_box=message_box)
     print(openai_answer)
     if "Cococa-" in openai_answer or "cococa-" in openai_answer:
-        thread1.join()
         print("---------------------- Serpai_answer ------------------------")
+        result_answer = langchain_func(text)
         print(result_answer)
         message_box.pop(0)
         message_box.append({"role": "assistant", "content": result_answer[id]})

@@ -90,7 +90,6 @@ def extract_information(sen, id):
         model="gpt-3.5-turbo",
         messages=massage_box_extraction
     )
-    print(response)
     sentence = response.choices[0]["message"]["content"]
     print(sentence)
     if sentence.startswith("name") or sentence.startswith("Name"):
