@@ -115,7 +115,7 @@ async def handle_voice(message: types.Message):
     global is_running
     id = str(message.chat.id)
     picture_path = f'/kaggle/working/AI-avatar-generator/customer_files/customer_picture/{id}.png'
-    await message.photo[-1].download(picture_path, make_dirs=False)
+    await message.photo[-1].download(destination=picture_path, make_dirs=False)
 
 if __name__ == "__main__":
     
