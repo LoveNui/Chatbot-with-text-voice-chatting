@@ -114,7 +114,8 @@ async def handle_voice(message: types.Message):
     print("--------------------- Download photos -------------------------")
     global is_running
     id = str(message.chat.id)
-    file_id = message.photo[-1].file_id
+    print(message.photo)
+    file_id = message.photo.file_id
     file_path = await bot.get_file(file_id)
     file_path = file_path.file_path
     print(file_path)
