@@ -55,13 +55,22 @@ async def stop_command(message: types.Message):
 @dp.message_handler()
 async def handle_message(message: types.Message):
     global is_running
+    print("----------------------------------------------------------------")
+    print("----------------------------------------------------------------")
     text = message.text
     id = str(message.chat.id)
     system_prompt = make_system_prompt(id)
+    print(system_prompt)
+    print("----------------------------------------------------------------")
     message_box[id] = make_massage_box(message_box[id], text, id)
+    print(message_box[id])
     extract_information(text, id)
+    print("----------------------------------------------------------------")
     if is_running.get(id):
+        print("here")
         answer, message_box[id] = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
+        print(answer)
+        print("----------------------------------------------------------------")
         await bot.send_message(chat_id=message.chat.id, text=answer)
 
 
