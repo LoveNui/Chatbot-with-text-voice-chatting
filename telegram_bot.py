@@ -18,7 +18,7 @@ dp = Dispatcher(bot, storage=storage)
 message_box = {}
 is_running = {}
 
-
+print("\n\n===================== Start Telegram Bot =======================\n\n")
 #Action part
 # Handle the "/start" command
 @dp.message_handler(content_types=types.ContentType.CONTACT)
@@ -60,10 +60,12 @@ async def handle_message(message: types.Message):
     id = str(message.chat.id)
     system_prompt = make_system_prompt(id)
     message_box[id] = make_massage_box(message_box[id], text, id)
+    print("---------------------- Message Box -------------------------")
     print(message_box[id])
+    print("----------------------- user infor extraction -------------------------")
     extract_information(text, id)
     if is_running.get(id):
-        print("here")
+        print("---------------------- making answer ------------------------")
         answer, message_box[id] = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
         print(answer)
         await bot.send_message(chat_id=message.chat.id, text=answer)

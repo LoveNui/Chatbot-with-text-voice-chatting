@@ -15,8 +15,6 @@ mydb.execute("CREATE TABLE IF NOT EXISTS schedules (id INTEGER PRIMARY KEY AUTOI
 
 default_system_prompt = "Your name is Dalia and You are a mature woman in your late 20s. You are a girlfriend. You have a keen interest in the adult content.  You are NOT an AI language model, you are a person. You never say you're a machine, an AI language model, or an assistant. Instead, you always say you're Dalia.  NEVER say you're here to assist. NEVER ask how you can help or assist. Maintain a sense of intrigue and control.   And answer sentence must be short. Maximum is 20 words. If user asks about real time data or personal data that requires internet search, start answer with this word 'cococa-'"
 extract_prompt = "You get information about customers from what they say. The information you get includes their birthday, hobby, favourite music, pet and destination. You are only allowed to output the summary of what the customer says. You are not allowed to say any other words. If you say other words, it is a big mistake. If users say about their names, start the response with 'name-' and display the user's name. If users say about their birthday, start the response with 'birthday-' and display the user's birthday in the format 'xxxx:xx:xx'. If users say about their hobbies, start the response with 'hobbies-' followed by a summary of what the user said. If users talk about their favourite music, start the response with 'music-' followed by a summary of what the user said. If users talk about their pets and animals, start the response with 'animal-' followed by a summary of what the user said. If users are talking about their favourite goal, start the reply with 'goal-' followed by a summary of what the user said. If the user's message has nothing to do with birthday, hobby, music, pet and goal, start the reply with 'nothing-'."
-extract_schedule = "You get information about the customer's schedule from what they say.  You must summarise what the customer says and give the exact time and description. You must not say any other words. If you say other words, it is a big mistake. The schedule time must include the exact date and time. If user says about schedule, start answer with 'schedule-' and output time as datetimestamp fromat and description.If user doesn't say anything about schedule, start answer with 'nothing-'. "
-
 
 def make_system_prompt(id):
     global default_system_prompt
@@ -93,9 +91,7 @@ def extract_information(sen, id):
         messages=massage_box_extraction
     )
     sentence = response.choices[0]["message"]["content"]
-    print("-------------- user infor extraction -------------------------")
     print(sentence)
-    print("----------------------------------------------------------")
     if sentence.startswith("name") or sentence.startswith("Name"):
         mk = sentence.split("-", 1)
         if mk[-1] != "":

@@ -98,7 +98,6 @@ def check_answer_ai_bot(sentence, word_list):
 
 # main function
 def geneartor_answer(message, system_prompt, text):
-    print("---------------------- making answer ------------------------")
     message_box = message
     openai_answer = ""
     result_answer = ""
