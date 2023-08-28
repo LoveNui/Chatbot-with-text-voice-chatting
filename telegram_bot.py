@@ -77,15 +77,15 @@ async def start_command(message: types.Message):
 # Handle incoming messages
 @dp.message_handler()
 async def handle_message(message: types.Message):
-    if clone_picture[id] == True:
-        clone_picture[id] = False
-    if clone_voice[id] == True:
-        clone_voice[id] = False
     print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
     print(message)
     global is_running
     text = message.text
     id = str(message.chat.id)
+    if clone_picture[id] == True:
+        clone_picture[id] = False
+    if clone_voice[id] == True:
+        clone_voice[id] = False
     print("----------------------- user infor extraction -------------------------")
     ext, system_prompt = extract_information(text, id)
     print("---------------------- Message Box -------------------------")
@@ -101,10 +101,10 @@ async def handle_message(message: types.Message):
 # Handle the voice message
 @dp.message_handler(content_types=['voice'])
 async def handle_voice(message: types.Message):
-    if clone_picture[id] == True:
-        clone_picture[id] = False
     global is_running
     id = str(message.chat.id)
+    if clone_picture[id] == True:
+        clone_picture[id] = False
     file_id = message.voice.file_id
     # Get the file path from Telegram servers
     file_path = await bot.get_file(file_id)
