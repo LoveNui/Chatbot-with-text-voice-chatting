@@ -51,7 +51,26 @@ async def stop_command(message: types.Message):
     await bot.send_message(chat_id=message.chat.id, text="Thank you, Nice talking to you.")
 
 
-# Handle incoming messages
+# # Handle incoming messages
+# @dp.message_handler()
+# async def handle_message(message: types.Message):
+#     print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
+#     global is_running
+#     text = message.text
+#     id = str(message.chat.id)
+#     system_prompt = make_system_prompt(id)
+#     message_box[id] = make_massage_box(message_box[id], text, id)
+#     print("---------------------- Message Box -------------------------")
+#     print(message_box[id])
+#     print("----------------------- user infor extraction -------------------------")
+#     extract_information(text, id)
+#     if is_running.get(id):
+#         print("---------------------- making answer ------------------------")
+#         answer, message_box[id] = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
+#         print(answer)
+#         await bot.send_message(chat_id=message.chat.id, text=answer)
+    
+
 @dp.message_handler()
 async def handle_message(message: types.Message):
     print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
@@ -66,9 +85,11 @@ async def handle_message(message: types.Message):
     extract_information(text, id)
     if is_running.get(id):
         print("---------------------- making answer ------------------------")
-        answer, message_box[id] = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
+        answer = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
         print(answer)
-        await bot.send_message(chat_id=message.chat.id, text=answer)
+        result = video_response(answer, id)
+        with open(result, "rb") as video_file:
+            await bot.send_video(chat_id=message.chat.id, video = video_file, duration=0)
 
 
 # Handle the voice message
