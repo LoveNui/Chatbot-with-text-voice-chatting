@@ -108,17 +108,17 @@ def geneartor_answer(message, system_prompt, text):
         print("---------------------- Serpai_answer ------------------------")
         result_answer = langchain_func(text)
         print(result_answer)
-        message_box.pop(0)
+        message_box.pop(-2)
         message_box.append({"role": "assistant", "content": result_answer[id]})
         message_box.append({"role": "system", "content": system_prompt})
         return result_answer, message_box
     elif check_answer_ai_bot(openai_answer, ai_bot_list):
-        message_box.pop(0)
+        message_box.pop(-2)
         message_box.append({"role": "assistant", "content": default_answer})
         message_box.append({"role": "system", "content": system_prompt})
         return default_answer, message_box
     else:
-        message_box.pop(0)
+        message_box.pop(-2)
         message_box.append({"role": "assistant", "content": openai_answer})
         message_box.append({"role": "system", "content": system_prompt})
         return openai_answer, message_box
