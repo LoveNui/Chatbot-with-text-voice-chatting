@@ -90,7 +90,7 @@ async def handle_voice(message: types.Message):
     print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
     file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format("6359746469:AAHsiSHmdFWD4XxzDvYmWvAgM5IO35dUe7c", file_path))
     # Save the file to disk
-    voice_message = f'/kaggle/working/AI-avatar-generator/voice_message/{id}.ogg'
+    voice_message = f'/kaggle/working/AI-avatar-generator/voice_message/{id}.mp3'
     with open(voice_message, "wb") as f:
         f.write(file.content)
     print("------------------ Voice to Text ---------------------")
