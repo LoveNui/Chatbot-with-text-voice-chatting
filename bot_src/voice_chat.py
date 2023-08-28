@@ -16,7 +16,7 @@ params = {
 
 def speech_to_text(id):
     # Save the file to disk
-    speech_file = f'../voice_message/{id}.ogg'
+    speech_file = f'/kaggle/working/AI-avatar-generator/voice_message/{id}.ogg'
     with open(speech_file, "rb") as f:
         source = {"buffer": f, "mimetype": 'audio/' + "ogg"}
         res = dg.transcription.sync_prerecorded(source, params)

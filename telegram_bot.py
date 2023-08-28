@@ -72,17 +72,10 @@ async def handle_message(message: types.Message):
     print("----------------------- user infor extraction -------------------------")
     ext, system_prompt = extract_information(text, id)
     if is_running.get(id):
+        print("---------------------- making answer ------------------------")
         answer, message_box[id] = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
         print(answer)
-        print("---------------------- Genearting Video ------------------------")
-        result = video_response(answer, id)
-        with open(result, "rb") as video_file:
-            await bot.send_video(chat_id=message.chat.id, video = video_file, duration=0)
-
-        # print("---------------------- making answer ------------------------")
-        # answer, message_box[id] = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
-        # print(answer)
-        # await bot.send_message(chat_id=message.chat.id, text=answer)
+        await bot.send_message(chat_id=message.chat.id, text=answer)
 
 
 # Handle the voice message
@@ -94,14 +87,15 @@ async def handle_voice(message: types.Message):
     # Get the file path from Telegram servers
     file_path = await bot.get_file(file_id)
     file_path = file_path.file_path
-
+    print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
     file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format("6359746469:AAHsiSHmdFWD4XxzDvYmWvAgM5IO35dUe7c", file_path))
-
     # Save the file to disk
-    voice_message = f'./voice_message/{id}.ogg'
+    voice_message = f'/kaggle/working/AI-avatar-generator/voice_message/{id}.ogg'
     with open(voice_message, "wb") as f:
         f.write(file.content)
+    print("------------------ Voice to Text ---------------------")
     text = speech_to_text(id)
+    print(text)
     message_box[id] = make_massage_box(message_box[id], text, id)
     ext, system_prompt = extract_information(text, id)
     if is_running.get(id):
