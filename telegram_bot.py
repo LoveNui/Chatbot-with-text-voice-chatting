@@ -50,27 +50,15 @@ async def stop_command(message: types.Message):
     message_box.pop(str(message.chat.id))
     await bot.send_message(chat_id=message.chat.id, text="Thank you, Nice talking to you.")
 
+# Handle the "/clone" command
+@dp.message_handler(commands=["clone"])
+async def start_command(message: types.Message):
+    global is_running
+    global message_box
+    if is_running.get(id):
+        await bot.send_message(chat_id=message.chat.id, text="Please upload your voice. The audio should be '.wav' and the audio time should be 30~40s.")
 
-# # Handle incoming messages
-# @dp.message_handler()
-# async def handle_message(message: types.Message):
-#     print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
-#     global is_running
-#     text = message.text
-#     id = str(message.chat.id)
-#     system_prompt = make_system_prompt(id)
-#     message_box[id] = make_massage_box(message_box[id], text, id)
-#     print("---------------------- Message Box -------------------------")
-#     print(message_box[id])
-#     print("----------------------- user infor extraction -------------------------")
-#     extract_information(text, id)
-#     if is_running.get(id):
-#         print("---------------------- making answer ------------------------")
-#         answer, message_box[id] = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
-#         print(answer)
-#         await bot.send_message(chat_id=message.chat.id, text=answer)
-    
-
+# Handle incoming messages
 @dp.message_handler()
 async def handle_message(message: types.Message):
     print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
@@ -86,10 +74,7 @@ async def handle_message(message: types.Message):
         print("---------------------- making answer ------------------------")
         answer, message_box[id] = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
         print(answer)
-        print("---------------------- Genearting Video ------------------------")
-        result = video_response(answer, id)
-        with open(result, "rb") as video_file:
-            await bot.send_video(chat_id=message.chat.id, video = video_file, duration=0)
+        await bot.send_message(chat_id=message.chat.id, text=answer)
 
 
 # Handle the voice message
@@ -97,7 +82,7 @@ async def handle_message(message: types.Message):
 async def handle_voice(message: types.Message):
     global is_running
     id = str(message.chat.id)
-    
+    file_id = message.voice.file_id
     # Get the file path from Telegram servers
     file_path = await bot.get_file(file_id)
     file_path = file_path.file_path
@@ -110,11 +95,13 @@ async def handle_voice(message: types.Message):
         f.write(file.content)
 
     text = speech_to_text(id)
-    
-    system_prompt = make_system_prompt(id)
     message_box[id] = make_massage_box(message_box[id], text, id)
-    if is_running:
-        answer = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
+    ext, system_prompt = extract_information(text, id)
+    if is_running.get(id):
+        print("---------------------- making answer ------------------------")
+        answer, message_box[id] = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
+        print(answer)
+        print("---------------------- Genearting Video ------------------------")
         result = video_response(answer, id)
         with open(result, "rb") as video_file:
             await bot.send_video(chat_id=message.chat.id, video = video_file, duration=0)
