@@ -84,8 +84,9 @@ async def handle_message(message: types.Message):
     ext, system_prompt = extract_information(text, id)
     if is_running.get(id):
         print("---------------------- making answer ------------------------")
-        answer = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
+        answer, message_box[id] = geneartor_answer(message=message_box[id], system_prompt=system_prompt, text=text)
         print(answer)
+        print("---------------------- Genearting Video ------------------------")
         result = video_response(answer, id)
         with open(result, "rb") as video_file:
             await bot.send_video(chat_id=message.chat.id, video = video_file, duration=0)

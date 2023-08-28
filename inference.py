@@ -16,14 +16,18 @@ from src.utils.init_path import init_path
 from src.text2speech.tts import tts
 
 def video_geneartor(args):
+    print("------------------------- voice Genearting Module ---------------------")
+    print(args.text, args.npz)
     #torch.backends.cudnn.enabled = False
     audio = tts(args.text, voice_name = args.npz)
     if audio == False:
         print("Error in genearte speech")
         return "Error in genearte speech"
     audio_path ="/kaggle/working/AI-avatar-generator/src/audio.wav"
+    print("------------------------- voice Genearting Module ---------------------")
     pic_path = args.picture
     save_dir = os.path.join(args.result_dir, strftime("%Y_%m_%d_%H.%M.%S"))
+    print(pic_path, save_dir)
     os.makedirs(save_dir, exist_ok=True)
     pose_style = args.pose_style
     batch_size = args.batch_size
