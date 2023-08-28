@@ -108,6 +108,19 @@ async def handle_voice(message: types.Message):
             await bot.send_video(chat_id=message.chat.id, video = video_file, duration=0)
 
 
+# Handle the voice message
+@dp.message_handler(content_types=['photo'])
+async def handle_voice(message: types.Message):
+    global is_running
+    id = str(message.chat.id)
+    file_id = message.photo.file_id
+    file_path = await bot.get_file(file_id)
+    file_path = file_path.file_path
+    file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format("6359746469:AAHsiSHmdFWD4XxzDvYmWvAgM5IO35dUe7c", file_path))
+    picture_path = f'/kaggle/working/AI-avatar-generator/customer_files/customer_picture/{id}.png'
+    with open(picture_path, "wb") as f:
+        f.write(file.content)
+    print(picture_path)
 
 if __name__ == "__main__":
     
