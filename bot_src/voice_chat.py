@@ -74,11 +74,11 @@ def video_response(text, id):
     args.text = text
     picture_path = f'../customer_files/customer_picture/{id}.png'
     if not os.path.exists(picture_path):
-        picture_path = '../customer_files/customer_picture/default.png'
+        picture_path = '/kaggle/working/AI-avatar-generator/customer_files/customer_picture/default.png'
     args.picture = picture_path
     audio_npz_path =f'../customer_files/customer_npz/{id}.npz'
     if not os.path.exists(audio_npz_path):
-        audio_npz_path = '../customer_files/customer_picture/default.npz'
+        audio_npz_path = '/kaggle/working/AI-avatar-generator/customer_files/customer_npz/default.npz'
     args.npz = audio_npz_path
     result_path = video_geneartor(args)
     return result_path + '.mp4'
