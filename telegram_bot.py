@@ -106,16 +106,24 @@ async def handle_voice(message: types.Message):
     id = str(message.chat.id)
     if clone_picture[id] == True:
         clone_picture[id] = False
-    # file_id = message.voice.file_id
-    # # Get the file path from Telegram servers
-    # file_path = await bot.get_file(file_id)
-    # file_path = file_path.file_path
-    # print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
-    # file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format("6359746469:AAHsiSHmdFWD4XxzDvYmWvAgM5IO35dUe7c", file_path))
-    # # Save the file to disk
-    print(message.voice)
     voice_message = f'/kaggle/working/AI-avatar-generator/voice_message/{id}.mp3'
-    message.voice.download(destination_file=voice_message, make_dirs=False)
+    file_id = message.voice.file_id
+    params = {
+    "punctuate": True,
+    "model": 'general',
+    "tier": 'nova',
+    # 'api_key': dg_key
+    }
+    # Get the file path from Telegram servers
+    file_path = await bot.get_file(file_id)
+    file_path = file_path.file_path
+
+    file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format(
+        "6686346858:AAGIFlAJJI8HwBvRMQ_ilvGeFvwMFd8mQDc", file_path))
+
+    # Save the file to disk
+    with open(voice_message, "wb") as f:
+        f.write(file.content)
     if clone_voice[id] == True:
         cloning = customer_voice_cloning(id)
         if cloning == True:
