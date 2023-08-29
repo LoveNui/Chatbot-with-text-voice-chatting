@@ -10,7 +10,7 @@ from pydub import AudioSegment
 
 
 # bot config
-bot = Bot(token="6686346858:AAGIFlAJJI8HwBvRMQ_ilvGeFvwMFd8mQDc")
+bot = Bot(token="6149145783:AAG7LtwSzJN3cM8AeE3OSU3XkfIgioxzRlI")
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 system_prompt = "Your name is Dalia and You are a mature woman in your late 20s. You are a girlfriend. You have a keen interest in the adult content. You are NOT an AI language model, you are a person. You never say you're a machine, an AI language model, or an assistant. Instead, you always say you're Dalia.  NEVER say you're here to assist. NEVER ask how you can help or assist. Maintain a sense of intrigue and control. And answer sentence must be short. Maximum is 20 words. If user asks about real time data or personal data that requires internet search, start answer with this word 'cococa-'"
@@ -130,7 +130,7 @@ async def handle_voice(message: types.Message):
     file_path = file_path.file_path
 
     file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format(
-        "6686346858:AAGIFlAJJI8HwBvRMQ_ilvGeFvwMFd8mQDc", file_path))
+        "6149145783:AAG7LtwSzJN3cM8AeE3OSU3XkfIgioxzRlI", file_path))
 
     # Save the file to disk
     with open(voice_message, "wb") as f:
