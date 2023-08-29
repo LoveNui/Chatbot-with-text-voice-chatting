@@ -23,8 +23,7 @@ def speech_to_text(id):
         with open("1.json", "w") as transcript:
             json.dump(res, transcript)
     data = json.load(open('1.json'))
-    print(data["results"]["channels"][0]["alternatives"][0]["transcript"])
-    return data
+    return data["results"]["channels"][0]["alternatives"][0]["transcript"]
 
 def set_parameter():
     parser = ArgumentParser()  
