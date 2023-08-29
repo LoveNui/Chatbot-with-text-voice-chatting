@@ -77,7 +77,7 @@ async def start_command(message: types.Message):
 # Handle incoming messages
 @dp.message_handler()
 async def handle_message(message: types.Message):
-    print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
+    print("\n-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-\n\n")
     print(message)
     global is_running
     text = message.text
@@ -101,20 +101,21 @@ async def handle_message(message: types.Message):
 # Handle the voice message
 @dp.message_handler(content_types=['voice'])
 async def handle_voice(message: types.Message):
+    print("\n-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-\n\n")
     global is_running
     id = str(message.chat.id)
     if clone_picture[id] == True:
         clone_picture[id] = False
-    file_id = message.voice.file_id
-    # Get the file path from Telegram servers
-    file_path = await bot.get_file(file_id)
-    file_path = file_path.file_path
-    print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
-    file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format("6359746469:AAHsiSHmdFWD4XxzDvYmWvAgM5IO35dUe7c", file_path))
-    # Save the file to disk
+    # file_id = message.voice.file_id
+    # # Get the file path from Telegram servers
+    # file_path = await bot.get_file(file_id)
+    # file_path = file_path.file_path
+    # print("-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-")
+    # file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format("6359746469:AAHsiSHmdFWD4XxzDvYmWvAgM5IO35dUe7c", file_path))
+    # # Save the file to disk
+    print(message.voice)
     voice_message = f'/kaggle/working/AI-avatar-generator/voice_message/{id}.mp3'
-    with open(voice_message, "wb") as f:
-        f.write(file.content)
+    message.voice.download(destination_file=voice_message, make_dirs=False)
     if clone_voice[id] == True:
         cloning = customer_voice_cloning(id)
         if cloning == True:
