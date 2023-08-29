@@ -72,7 +72,7 @@ async def start_command(message: types.Message):
     global message_box
     if is_running.get(str(message.chat.id)):
         clone_picture[str(message.chat.id)] = True
-        await bot.send_message(chat_id=message.chat.id, text="Please record your voice. The voice message's time is 30 ~ 40s. Let's start")
+        await bot.send_message(chat_id=message.chat.id, text="Please upload your images. The image size must be at least 500*500.")
 
 # Handle incoming messages
 @dp.message_handler()
@@ -125,6 +125,7 @@ async def handle_voice(message: types.Message):
     with open(voice_message, "wb") as f:
         f.write(file.content)
     if clone_voice[id] == True:
+        print("------------------ Voice Cloning ---------------------")
         cloning = customer_voice_cloning(id)
         if cloning == True:
             await bot.send_message(chat_id=message.chat.id, text="Congratulations!, Successfully cloned your voice")
@@ -160,8 +161,9 @@ async def handle_voice(message: types.Message):
         try:
             await message.photo[-1].download(destination_file=picture_path, make_dirs=False)
             clone_picture[id] == False
+            await bot.send_message(chat_id=message.chat.id, text="Congratulations!, Successfully uploaded your picture")
         except:
-            await bot.send_message(chat_id=message.chat.id, text="Failed to download your pictures. Please try again")
+            await bot.send_message(chat_id=message.chat.id, text="Failed to upload your pictures. Please try again")
 
 if __name__ == "__main__":
     
