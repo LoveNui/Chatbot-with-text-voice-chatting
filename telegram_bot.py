@@ -61,8 +61,8 @@ async def stop_command(message: types.Message):
 async def start_command(message: types.Message):
     global is_running
     global message_box
-    if is_running.get(id):
-        clone_voice[id] = True
+    if is_running.get(str(message.chat.id)):
+        clone_voice[str(message.chat.id)] = True
         await bot.send_message(chat_id=message.chat.id, text="Please record your voice. The voice message's time is 30 ~ 40s. Let's start")
 
 # Handle the "/picture" command
@@ -70,8 +70,8 @@ async def start_command(message: types.Message):
 async def start_command(message: types.Message):
     global is_running
     global message_box
-    if is_running.get(id):
-        clone_picture[id] = True
+    if is_running.get(str(message.chat.id)):
+        clone_picture[str(message.chat.id)] = True
         await bot.send_message(chat_id=message.chat.id, text="Please record your voice. The voice message's time is 30 ~ 40s. Let's start")
 
 # Handle incoming messages
