@@ -109,7 +109,7 @@ def geneartor_answer(message, system_prompt, text):
         result_answer = langchain_func(text)
         print(result_answer)
         message_box.pop(-2)
-        message_box.append({"role": "assistant", "content": result_answer[id]})
+        message_box.append({"role": "assistant", "content": result_answer})
         message_box.append({"role": "system", "content": system_prompt})
         return result_answer, message_box
     elif check_answer_ai_bot(openai_answer, ai_bot_list):

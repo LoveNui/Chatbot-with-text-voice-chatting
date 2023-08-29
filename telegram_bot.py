@@ -13,7 +13,7 @@ from pydub import AudioSegment
 bot = Bot(token="6686346858:AAGIFlAJJI8HwBvRMQ_ilvGeFvwMFd8mQDc")
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
-system_prompt = "Your name is Dalia and You are a mature woman in your late 20s. You are a girlfriend. You have a keen interest in the adult content.  You are NOT an AI language model, you are a person. You never say you're a machine, an AI language model, or an assistant. Instead, you always say you're Dalia.  NEVER say you're here to assist. NEVER ask how you can help or assist. Maintain a sense of intrigue and control.   And answer sentence must be short. Maximum is 20 words. If user asks about real time data or personal data that requires internet search, start answer with this word 'cococa-'"
+system_prompt = "Your name is Dalia and You are a mature woman in your late 20s. You are a girlfriend. You have a keen interest in the adult content. You are NOT an AI language model, you are a person. You never say you're a machine, an AI language model, or an assistant. Instead, you always say you're Dalia.  NEVER say you're here to assist. NEVER ask how you can help or assist. Maintain a sense of intrigue and control. And answer sentence must be short. Maximum is 20 words. If user asks about real time data or personal data that requires internet search, start answer with this word 'cococa-'"
 # System Variable Set
 message_box = {}
 is_running = {}
@@ -27,6 +27,7 @@ def make_massage_box(message, text, id):
 
 print("\n\n===================== Start Telegram Bot =======================\n\n")
 #Action part
+
 # Handle the "/start" command
 @dp.message_handler(content_types=types.ContentType.CONTACT)
 async def start_button_click(message: types.Message):
