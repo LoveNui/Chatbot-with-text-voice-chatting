@@ -77,7 +77,7 @@ def video_response(text, id):
     args.picture = picture_path
     audio_npz_path =f'/kaggle/working/AI-avatar-generator/customer_files/customer_npz/{id}.npz'
     if not os.path.exists(audio_npz_path):
-        audio_npz_path = 'es_speaker_3'
+        audio_npz_path = 'es_speaker_4'
     args.npz = audio_npz_path
     result_path = video_geneartor(args)
     return result_path + '.mp4'
