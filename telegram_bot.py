@@ -1,6 +1,6 @@
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.types import ContentType
+from aiogram.types import ContentType, InlineKeyboardMarkup, InlineKeyboardButton
 
 from bot_src.answer import geneartor_answer
 from bot_src.voice_chat import video_response, speech_to_text
@@ -25,8 +25,30 @@ def make_massage_box(message, text, id):
     message_box.append({"role": "user", "content": text})
     return message_box
 
+# menu buttons
+button1 = InlineKeyboardButton(text="Set Picture", callback_data="Upload-Cusotmer-Picture")
+button2 = InlineKeyboardButton(text="Clone Voice", callback_data="Upload-customer-voice")
+
+keyboard_inline = InlineKeyboardMarkup().add(button1, button2)
+
+
 print("\n\n===================== Start Telegram Bot =======================\n\n")
 #Action part
+
+# Handle the button events
+@dp.callback_query_handler(text=["Upload-Cusotmer-Picture", "Upload-customer-voice"])
+async def check_button(call: types.CallbackQuery):
+    id = call["from"].id
+    if is_running.get(str(id)):
+        # Checking which button is pressed and respond accordingly
+        if call.data == "Upload-Cusotmer-Picture":
+            clone_picture[str(id)] = True
+            await bot.send_message(chat_id=id, text="Please upload your images. The image size must be at least 500*500.")
+        if call.data == "Upload-customer-voice":
+            clone_voice[str(id)] = True
+            await bot.send_message(chat_id=id, text="Please record your voice. The voice message's time is 30 ~ 40s. Let's start")
+    else:
+        pass
 
 # Handle the "/start" command
 @dp.message_handler(content_types=types.ContentType.CONTACT)
@@ -44,9 +66,9 @@ async def start_command(message: types.Message):
     is_running[str(message.chat.id)] = True
     clone_picture[str(message.chat.id)] = False
     clone_voice[str(message.chat.id)] = False
-    message_box[str(message.chat.id)] = [{"role": "assistant", "content": "Hi, My name is Dalia. How is it going?"},{"role": "system",
+    message_box[str(message.chat.id)] = [{"role": "assistant", "content": "Hi, this is Dalia. How are you doing? If you want to upload your picture, click 'Upload Picture' or if you want to clone your voice, click 'Clone Voice'."},{"role": "system",
                     "content": system_prompt}]
-    await bot.send_message(chat_id=message.chat.id, text="Hi, It's Dalia. How is it going?")
+    await bot.send_message(chat_id=message.chat.id, text="Hi, this is Dalia. How are you doing? If you want to upload your picture, click 'Upload Picture' or if you want to clone your voice, click 'Clone Voice'.",reply_markup=keyboard_inline)
 
 
 # Handle the "/stop" command
@@ -60,25 +82,13 @@ async def stop_command(message: types.Message):
     clone_voice.pop(str(message.chat.id))
     await bot.send_message(chat_id=message.chat.id, text="Thank you, Nice talking to you.")
 
-# Handle the "/voice" command
-@dp.message_handler(commands=["voice"])
-async def start_command(message: types.Message):
+# Handle the "/menu" command
+@dp.message_handler(commands=["menu"])
+async def menu_command(message: types.Message):
     global is_running
     global message_box
     if is_running.get(str(message.chat.id)):
-        clone_voice[str(message.chat.id)] = True
-        await bot.send_message(chat_id=message.chat.id, text="Please record your voice. The voice message's time is 30 ~ 40s. Let's start")
-    else:
-        pass
-
-# Handle the "/picture" command
-@dp.message_handler(commands=["picture"])
-async def start_command(message: types.Message):
-    global is_running
-    global message_box
-    if is_running.get(str(message.chat.id)):
-        clone_picture[str(message.chat.id)] = True
-        await bot.send_message(chat_id=message.chat.id, text="Please upload your images. The image size must be at least 500*500.")
+        await bot.send_message(chat_id=message.chat.id, text="I am your virtual friend. I can chat with you via text and voice. When you send me a voice message, I will respond with a video message. You can set your pictures by clicking 'Upload Picture'. If you want, I can clone your voice and reply with your voice. To clone your voice, click 'Clone Voice'.",reply_markup=keyboard_inline)
     else:
         pass
 
