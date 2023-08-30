@@ -178,13 +178,19 @@ async def handle_voice(message: types.Message):
     id = str(message.chat.id)
     if clone_picture[id] == True:
         picture_path = f'/kaggle/working/AI-avatar-generator/customer_files/customer_picture/{id}.png'
-        print(picture_path)
+        file_id = message.photo[-1].file_id
+        # Get the file path from Telegram servers
+        file_path = await bot.get_file(file_id)
+        file_path = file_path.file_path
         try:
-            message.photo[-1].download(destination_file=picture_path, make_dirs=False)
+            file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format("6149145783:AAG7LtwSzJN3cM8AeE3OSU3XkfIgioxzRlI", file_path))
+            with open(picture_path, "wb") as f:
+                f.write(file.content)
             clone_picture[id] == False
             await bot.send_message(chat_id=message.chat.id, text="Congratulations!, Successfully uploaded your picture")
         except:
             await bot.send_message(chat_id=message.chat.id, text="Failed to upload your pictures. Please try again")
+
 
 if __name__ == "__main__":
     
