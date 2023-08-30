@@ -66,8 +66,7 @@ async def start_command(message: types.Message):
     is_running[str(message.chat.id)] = True
     clone_picture[str(message.chat.id)] = False
     clone_voice[str(message.chat.id)] = False
-    message_box[str(message.chat.id)] = [{"role": "assistant", "content": "Hi, this is Dalia. How are you doing? If you want to upload your picture, click 'Upload Picture' or if you want to clone your voice, click 'Clone Voice'."},{"role": "system",
-                    "content": system_prompt}]
+    message_box[str(message.chat.id)] = [{"role": "assistant", "content": "Hi, this is Dalia. How are you doing? If you want to upload your picture, click 'Upload Picture' or if you want to clone your voice, click 'Clone Voice'."},{"role": "system", "content": system_prompt}]
     await bot.send_message(chat_id=message.chat.id, text="Hi, this is Dalia. How are you doing? If you want to upload your picture, click 'Upload Picture' or if you want to clone your voice, click 'Clone Voice'.",reply_markup=keyboard_inline)
 
 
@@ -120,7 +119,7 @@ async def handle_message(message: types.Message):
 # Handle the voice message
 @dp.message_handler(content_types=['voice'])
 async def handle_voice(message: types.Message):
-    print("\n-/-/-/-/-/-/-/-/-/-/-/- New Message -/-/-/-/-/-/-/-/-/-/-/-\n\n")
+    print("\n-/-/-/-/-/-/-/-/-/-/-/- New Voice Message -/-/-/-/-/-/-/-/-/-/-/-\n\n")
     global is_running
     global message_box
     global system_prompt
@@ -139,8 +138,7 @@ async def handle_voice(message: types.Message):
     file_path = await bot.get_file(file_id)
     file_path = file_path.file_path
 
-    file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format(
-        "6149145783:AAG7LtwSzJN3cM8AeE3OSU3XkfIgioxzRlI", file_path))
+    file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format("6149145783:AAG7LtwSzJN3cM8AeE3OSU3XkfIgioxzRlI", file_path))
 
     # Save the file to disk
     with open(voice_message, "wb") as f:
@@ -182,7 +180,7 @@ async def handle_voice(message: types.Message):
         picture_path = f'/kaggle/working/AI-avatar-generator/customer_files/customer_picture/{id}.png'
         print(picture_path)
         try:
-            await message.photo[-1].download(destination_file=picture_path, make_dirs=False)
+            message.photo[-1].download(destination_file=picture_path, make_dirs=False)
             clone_picture[id] == False
             await bot.send_message(chat_id=message.chat.id, text="Congratulations!, Successfully uploaded your picture")
         except:
