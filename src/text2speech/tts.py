@@ -1,7 +1,7 @@
 from bark import SAMPLE_RATE, generate_audio, preload_models
 from scipy.io.wavfile import write as write_wav
 import os
-
+from argparse import ArgumentParser
 
 os.environ["SUNO_OFFLOAD_CPU"] = "True"
 os.environ["SUNO_USE_SMALL_MODELS"] = "True"
@@ -41,7 +41,8 @@ def tts(text_input, voice_name = 'en_speaker_2'):
 
 
 if __name__ == '__main__':
-    text = "I have to make my decision since it involves Production settings later. Beside, I have invested 50K USD in GPU and servers that are idle because of just routing issues"
-    voice_name = "en_speaker_2"
-    print(text)
-    tts(text, voice_name)
+    parser = ArgumentParser()  
+    parser.add_argument("--text", default='Hello, I am Dalia', help="text that needs to be converted to the speech")
+    parser.add_argument("--npz", default='en_speaker_2', help="voice that is used to generate speech")
+    args = parser.parse_args()
+    tts(args.text, args.npz)
