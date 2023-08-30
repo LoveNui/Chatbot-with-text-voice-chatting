@@ -29,6 +29,7 @@ def set_parameter():
     parser = ArgumentParser()  
     parser.add_argument("--text", default='Hello, I am Dalia', help="text that needs to be converted to the speech")
     parser.add_argument("--npz", default='en_speaker_2', help="voice that is used to generate speech")
+    parser.add_argument("--id", default='default', help="voice that is used to generate speech")
     parser.add_argument("--picture", default='default', help="picture that is used to generate video")
     parser.add_argument("--ref_eyeblink", default=None, help="path to reference video providing eye blinking")
     parser.add_argument("--ref_pose", default=None, help="path to reference video providing pose")
@@ -79,6 +80,7 @@ def video_response(text, id):
     if not os.path.exists(audio_npz_path):
         audio_npz_path = 'es_speaker_4'
     args.npz = audio_npz_path
+    args.id = id
     result_path = video_geneartor(args)
     return result_path + '.mp4'
     

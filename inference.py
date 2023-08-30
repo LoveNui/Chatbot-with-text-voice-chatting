@@ -26,7 +26,7 @@ def video_geneartor(args):
     audio_path ="/kaggle/working/AI-avatar-generator/src/audio.wav"
     print("------------------------- voice Genearting Module ---------------------")
     pic_path = args.picture
-    save_dir = os.path.join(args.result_dir, strftime("%Y_%m_%d_%H.%M.%S"))
+    save_dir = os.path.join(args.result_dir, args.id)
     print(pic_path, save_dir)
     os.makedirs(save_dir, exist_ok=True)
     pose_style = args.pose_style
