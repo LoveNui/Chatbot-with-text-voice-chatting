@@ -2,9 +2,7 @@ from bark import SAMPLE_RATE, generate_audio, preload_models
 from scipy.io.wavfile import write as write_wav
 import os
 from argparse import ArgumentParser
-from transformers import AutoProcessor, BarkModel
 
-processor = AutoProcessor.from_pretrained("suno/bark")
 os.environ["SUNO_OFFLOAD_CPU"] = "True"
 os.environ["SUNO_USE_SMALL_MODELS"] = "True"
 """
@@ -27,9 +25,7 @@ preload_models(
 def tts(text_input, voice_name = 'en_speaker_2'):
     received_text = text_input
     print("Received text:", received_text)
-    voice_preset = "v2/en_speaker_4"
-    inputs = processor(received_text, voice_preset=voice_preset)
-    audio_file = generate_audio(inputs, history_prompt=voice_name )
+    audio_file = generate_audio(received_text, history_prompt=voice_name )
     
     file_name = "/kaggle/working/AI-avatar-generator/src/audio.wav"
     try:
