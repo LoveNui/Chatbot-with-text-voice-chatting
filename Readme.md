@@ -9,7 +9,7 @@ Customers can set their pictures and voice. This bot can make video with custome
 ### Setup 1: Building Environment
 - Download code from gitlab
 
-  `git clone https://github.com/LoveNui/telegram_bot.git`
+  `git clone https://gitlab.com/lambda-vision/customersupportgpt.git`
 
 - Reseetting API keys
     - On the bot_src/private_env.py
@@ -36,13 +36,28 @@ Customers can set their pictures and voice. This bot can make video with custome
 ### Run Telegram Bot
 `python telegram-bot.py`
 ### Setting Customer Pictures and voice
-Users can set their pictures and voice. When Users upload their pictures and record their voice, the bot saves their pictures and clones users voice, and make video with their pictures and voice.
+Users can set their pictures and voice. When Users upload their pictures and record their voice, the bot saves their pictures and clones users voice, and make video with their pictures and voice
+
+Users start with bot using '/start'. If u do, the bot send first message with customer setting buttons. In this here, you can set your pictures and clone your voice.
+- 🔥 The telegram bot: voice-to-video response.
+<video  src="./examples/voice-video-response.mp4" type="video/mp4"> </video>
+
 #### Pictures
-- Users send message "/picture"
-- Users upload pictures. The picture's size must be at least 500*500.
+- Click "Set Picture"
+- Users upload pictures. The picture's size must be at least 500*500. And the picture's type is '.png'
 - If uploaded successfully, bot sends message "Congratulations!, Successfully uploaded your picture". When failed to upload pictures, bot sends message "Failed to upload your pictures. Please try again".
 
 #### Voice Cloning
-- Users send message "/voice"
+- Click "Clone Voice"
 - Users send voice message, the legnth is 30~40s. If users send voice message, the bot clones user's voice with this voice message.
 - If successfully clone voice, the bot sends message "Congratulations!, Successfully cloned your voice". If failed to clone voice, the bot sends "I am sorry. Failed to clone your voice"
+
+- 🔥 customer settings
+
+<video  src="./examples/customer-setting.mp4" type="video/mp4"> </video>
+
+- 🔥 Genearte video with customer picture and voice
+
+| voice_source                  | Video based on customer picture and cloned voice       |   customer pictures |
+|:--------------------: |:--------------------: | :----: |
+| <video  src="./examples/voice_source.ogg" type="audio/ogg"> </video> | <video  src="./examples/cloned_voice.mp4" type="video/mp4"> </video>  | <img src='./examples/art_0.png' width='380'></img> 
